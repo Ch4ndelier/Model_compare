@@ -53,7 +53,22 @@ if len(G_list) != len(V_list):
     print("error")
     exit()
 
-for key, value in zip(keys, values):
+for i in range(len(G_list)):
+    linecount += 1
+    g_key = G_list[i][0]
+    g_val = G_list[i][1]
+    v_key = V_list[i][0]
+    v_val = V_list[i][1]
+    print("g_key:", g_key)
+    print("g_val_shape:", g_val.size())
+    print("v_key:", v_key)
+    print("v_val_shape:", v_val.size())
+    exit()
+    #logging.info('{}test'.format(a))
+#print("linecount:", linecount)
+
+
+for i in range(len()):
     linecount += 1
     print("line:", linecount)
     print("name:", key)

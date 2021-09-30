@@ -1,3 +1,3 @@
 # Model Compare
 
-small script to compare models.
+python script to compare models.

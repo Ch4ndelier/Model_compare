@@ -18,12 +18,13 @@ from matplotlib.font_manager import FontProperties
 
 # 设置plt
 
-
+with open("config/cmp.json") as f:
+    config = json.load(f)
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 
-model_x_path = '/Users/liujunyuan/Model_cmp/models/13conv.pth'
-model_y_path = '/Users/liujunyuan/Model_cmp/models/13conv_2kminus_cartoon_TRQ.pth'
+model_x_path = config['model_x_path']
+model_y_path = config['model_y_path']
 model_x = torch.load(model_x_path)
 model_y = torch.load(model_y_path)
 model_x_name = model_x_path.split("/")[-1]
@@ -104,29 +105,29 @@ weight_list_x = get_weights(model_x)
 weight_list_y = get_weights(model_y)
 
 
-def get_std_list(weight_list):
+def get_std_list(model_name, weight_list):
     std_list = []
     mean_list = []
     max_list = []
     min_list = []
     for i in range(len(weight_list)):
         std = np.std(weight_list[i])
-        logging.info('第{}层卷积层参数的标准差为{:.3e}'.format(i + 1, std))
+        logging.info('模型{}:第{}层卷积层参数的标准差为{:.3e}'.format(model_name, i + 1, std))
         std_list.append(std)
         mean = np.mean(weight_list[i])
-        logging.info('第{}层卷积层参数的均值为{:.3e}'.format(i + 1, mean))
+        logging.info('模型{}:第{}层卷积层参数的均值为{:.3e}'.format(model_name, i + 1, mean))
         mean_list.append(mean)
         weight_max = np.max(weight_list[i])
-        logging.info('第{}层卷积层参数的最大值为{:.3e}'.format(i + 1, weight_max))
+        logging.info('模型{}:第{}层卷积层参数的最大值为{:.3e}'.format(model_name, i + 1, weight_max))
         max_list.append(weight_max)
         weight_min = np.min(weight_list[i])
-        logging.info('第{}层卷积层参数的最小值为{:.3e}'.format(i + 1, weight_min))
+        logging.info('模型{}:第{}层卷积层参数的最小值为{:.3e}'.format(model_name, i + 1, weight_min))
         min_list.append(weight_min)
     return std_list, mean_list, max_list, min_list
 
 
-std_list_x, mean_list_x, max_list_x, min_list_x = get_std_list(weight_list_x)
-std_list_y, mean_list_y, max_list_y, min_list_y = get_std_list(weight_list_y)
+std_list_x, mean_list_x, max_list_x, min_list_x = get_std_list(model_x_name, weight_list_x)
+std_list_y, mean_list_y, max_list_y, min_list_y = get_std_list(model_y_name, weight_list_y)
 
 
 def statistics_save(path, mode, list_x, list_y, label_x, label_y):

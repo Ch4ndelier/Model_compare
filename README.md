@@ -10,3 +10,8 @@ model_y_path = '/Users/liujunyuan/Model_cmp/models/13conv_2kminus_cartoon_TRQ.pt
 ```
 
 run `python demo.py`
+
+
+## TODO
+
+- [ ] for different model

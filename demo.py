@@ -17,8 +17,17 @@ from matplotlib.font_manager import FontProperties
 # model_weights = os.path.join(caffemodel_dir, 'model.caffemodel')
 
 # 设置plt
+import argparse
 
-with open("config/cmp.json") as f:
+
+parser = argparse.ArgumentParser(description='manual to this script')
+parser.add_argument("-opt", type=str, default=None)
+# TODO: add support for second order
+# parser.add_argument("-sopt", type=str, default=None)
+args = parser.parse_args()
+
+
+with open(args.opt) as f:
     config = json.load(f)
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
@@ -29,7 +38,6 @@ model_x = torch.load(model_x_path)
 model_y = torch.load(model_y_path)
 model_x_name = model_x_path.split("/")[-1]
 model_y_name = model_y_path.split("/")[-1]
-
 # 设置log
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)   # 设置打印级别

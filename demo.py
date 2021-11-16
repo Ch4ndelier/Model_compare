@@ -1,16 +1,9 @@
 import torch
 import logging
 from matplotlib import pyplot as plt
-import math
 import json
-from torch.autograd import Variable
-import torchvision
 import numpy as np
 import os
-import pickle
-import torch.autograd as autograd
-import torch.nn.utils as utils
-from matplotlib.font_manager import FontProperties
 
 # caffemodel_dir = 'demo'
 # model_def = os.path.join(caffemodel_dir, 'model.prototxt')
@@ -27,6 +20,7 @@ parser.add_argument("-opt", type=str, default=None)
 args = parser.parse_args()
 
 
+# set font
 with open(args.opt) as f:
     config = json.load(f)
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
@@ -38,7 +32,8 @@ model_x = torch.load(model_x_path)
 model_y = torch.load(model_y_path)
 model_x_name = model_x_path.split("/")[-1]
 model_y_name = model_y_path.split("/")[-1]
-# 设置log
+
+# set_log
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)   # 设置打印级别
 formatter = logging.Formatter('%(asctime)s %(filename)s %(funcName)s [line:%(lineno)d] %(levelname)s %(message)s')
@@ -60,7 +55,9 @@ logger.addHandler(fh)
 np.set_printoptions(threshold=np.inf)
 os.environ['CUDA_VISIBLE_DEVICES'] = '6'
 
-#print(model)
+
+# get weights from models: only for weight_norm type (weight_g and weight_v)
+# TODO: for normal weights
 def get_weights(model):
     keys = model.keys()
     values = model.values()

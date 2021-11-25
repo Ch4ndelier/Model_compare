@@ -9,9 +9,10 @@ model_x_path = '/Users/liujunyuan/Model_cmp/models/13conv.pth'
 model_y_path = '/Users/liujunyuan/Model_cmp/models/13conv_2kminus_cartoon_TRQ.pth'
 ```
 
-run `python demo.py -opt config/cmp.json`
+run `python demo_for_normal.py -opt config/cmp.json` for normal model.
+run `python demo.py -opt config/cmp.json` for weight norm model.
 
 
 ## TODO
 
-- [ ] for different model
+- [x] for different model
